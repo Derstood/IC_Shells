@@ -1,0 +1,13 @@
+example:
+	csh waitOneFile "x" 		to wait x
+	csh waitOneFile "x1"		to wait x1
+	csh waitOneFile "x2"		to wait x2
+	csh waitFiles.csh "x2"		to wait x2
+	csh waitFiles.csh "x x1 x2" to wait x1 x2 x3
+	csh waitFiles.csh "x x2"	to wait x x2
+	csh waitFiles.csh "x*"		to wait x x1 x2
+
+gist:
+	
+	input args use "",especially use express like x* *a* ...
+	it only work on csh.
