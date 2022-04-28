@@ -1,0 +1,1 @@
+ski-flashlvl64 -CFILE $configFile -CPU $cpuNum -MemLIMit 0%
