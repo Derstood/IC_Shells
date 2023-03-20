@@ -40,6 +40,6 @@ END {
 		print "not found aim-name net"
 	} else if (idNum > 1) {
 		print "failed to count cap:"
-		print "found more than 1 net-id, pls require niukun to update this awk-shell."
+		print "found more than 1 net-id, pls ask niukun to update this awk-shell."
 	}
 }
