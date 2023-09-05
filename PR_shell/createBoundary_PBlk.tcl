@@ -1,13 +1,29 @@
 proc createBoundary_PBlk { space } {
-    set bbox [get_attribute [get_core_area] bbox]
+    set boundary [get_attribute [get_core_area] boundary]
 
-    set glx [lindex $bbox 0 0]
-    set gly [lindex $bbox 0 1]
-    set ghx [lindex $bbox 1 0]
-    set ghy [lindex $bbox 1 1]
+    set p_sum [llength $boundary]
 
-    create_placement_blockage -boundary [list [list $glx $gly] [list $ghx [expr $gly + $space ]]]
-    create_placement_blockage -boundary [list [list $glx $gly] [list [expr $glx + $space ] $ghy]]
-    create_placement_blockage -boundary [list [list $glx [expr $ghy - $space]] [list $ghx $ghy ]]
-    create_placement_blockage -boundary [list [list [expr $ghx - $space] $gly] [list $ghx $ghy ]]
+    set p_pre [lindex $boundary [expr $p_sum -1 ]]
+    set p_pre_x [lindex $p_pre 0 ]
+    set p_pre_y [lindex $p_pre 1 ]
+    set i 0
+    while { $i < $p_sum } {
+        set p_x [lindex $boundary $i 0]
+        set p_y [lindex $boundary $i 1]
+        if {$p_x == $p_pre_x } {
+            set box1_x [expr $p_x - $space ]
+            set box1_y $p_y
+            set box2_x [expr $p_pre_x + $space]
+            set box2_y $p_pre_y
+        } else {
+            set box1_x $p_x
+            set box1_y [expr $p_y - $space]
+            set box2_x $p_pre_x
+            set box2_y [expr $p_pre_y + $space]
+        }
+        create_placement_blockage -boundary [list [list $box1_x $box1_y] [list $box2_x $box2_y]]
+        set p_pre_x $p_x
+        set p_pre_y $p_y
+        incr i
+    }
 }
