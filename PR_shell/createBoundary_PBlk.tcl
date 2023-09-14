@@ -1,6 +1,11 @@
 proc createBoundary_PBlk { space } {
+    set prefix "Derstood"
+    if {[ llength [get_placement_blockages ${prefix)_* -quiet ] ]} {
+        remove_placement_blockages ${prefix}_*
+    }
+    
     set boundary [get_attribute [get_core_area] boundary]
-
+    
     set p_sum [llength $boundary]
 
     set p_pre [lindex $boundary [expr $p_sum -1 ]]
@@ -21,7 +26,7 @@ proc createBoundary_PBlk { space } {
             set box2_x $p_pre_x
             set box2_y [expr $p_pre_y + $space]
         }
-        create_placement_blockage -boundary [list [list $box1_x $box1_y] [list $box2_x $box2_y]]
+        create_placement_blockage -boundary [list [list $box1_x $box1_y] [list $box2_x $box2_y]] -name ${prefix}_$i
         set p_pre_x $p_x
         set p_pre_y $p_y
         incr i
