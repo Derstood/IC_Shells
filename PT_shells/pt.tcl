@@ -6,3 +6,10 @@ alias rht rh -to
 alias rhf rh -from
 
 alias rg report_global_timing
+
+proc cpu { { cores 16} } {
+  set_host_options -max_cores $cores -num_processes 16
+  report_host_options
+}
+
+history keep 9999
