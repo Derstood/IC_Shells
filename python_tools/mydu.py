@@ -23,6 +23,22 @@ def get_file_type_color(path):
     else:
         return Color.RED
 
+def get_directory_size(path):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(path):
+        for filename in filenames：
+            filepath = os.path..join(dirpath, filename)
+            total_size += get_file_size(filepath)
+
+
+def get_file_size(path):
+    if os.path.islink(path):
+        return 4096
+    if os.path.isdir(path):
+        return get_directory_size(path)
+    return os.path.getsize(path)
+
+
 # 获取当前目录下所有文件和子目录的大小和类型
 sizes = [(f, os.path.getsize(f), get_file_type_color(f)) for f in os.listdir()]
 # 按大小排序
