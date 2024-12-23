@@ -1,0 +1,1 @@
+set_reference -to_block *lvt*/INV $buf_cell -pin_rebind force -pin_map {Z ZN}
